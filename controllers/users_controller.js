@@ -7,6 +7,9 @@ module.exports.profile = function(req, res){
 }
 
 module.exports.signUp = function(req, res){
+    if (req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
     return res.render('user_sign_up', {
         title: "Codeial | Sign Up"
     })
@@ -14,6 +17,10 @@ module.exports.signUp = function(req, res){
 
 // render the sign-in page
 module.exports.signIn = function(req, res){
+    if (req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
     return res.render('user_sign_in', {
         title: "Codeial | Sign In"
     })
@@ -32,7 +39,7 @@ module.exports.create = function(req, res){
             User.create(req.body, function(err, req){
 
                 if (err){console.log("error in creating user while signing up"); return}
-                return res.redirect('/user/sign-in');
+                return res.redirect('/users/sign-in');
             })
         }else{
             return res.redirect('back');
@@ -43,5 +50,10 @@ module.exports.create = function(req, res){
 
 //sign in and create a session for the user
 module.exports.createSession = function(req, res){
+    return res.redirect('/');
+}
 
+module.exports.destroySession = function(req, res){
+    req.logout();
+    return res.redirect('/');
 }
