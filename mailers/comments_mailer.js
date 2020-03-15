@@ -1,7 +1,7 @@
 const nodeMailer = require('../config/nodemailer');
 
 exports.newComment = (comment) => {
-    let htmlString = nodemMailer.renderTemplate({comment: comment}, '/comments/new_comment.ejs');
+    let htmlString = nodeMailer.renderTemplate({comment: comment}, '/comments/new_comment.ejs');
 
     nodeMailer.transporter.sendMail({
         from: 'vsvijju987@gmail.com', // sender address
